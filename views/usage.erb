@@ -1,0 +1,53 @@
+<!-- 使用方法タブの構成 -->
+<div class="tab-pane col-sm-12" id="usage">
+  <div class="panel panel-default">
+    <div class="panel-heading">基本的な使用方法</div>
+    <div class="panel-body">
+			<p>テキストボックスに日本語テキストを入力し、[実行] ボタンをクリックしてください。</p>
+			<p>[クリア] ボタンで入力したテキスト（および結果の表示）を消去できます。</p>
+			<p>入力可能なテキストの文字数は<%= @max_num_characters %>字です。</p>				
+			<div class="panel panel-default">
+			  <div class="panel-body">
+					<p ><b>利用可能なオプション</b></p>
+					<p>テキスト詳細情報を出力する<br />
+					　テキスト中の各文を形態素に分割して表示します。</p>
+					<p>語彙リストを表示する<br />
+					　形態素を集計し、出現順、発音順、頻度順のいずれかで表示します。</p>
+					<p>丸括弧とその内側のテキストを除去する<br />
+					　適切なリーダビリティ・スコアが出るよう丸括弧（ ）を文から除去します。</p>
+					<p>青空文庫のルビを除去する<br />
+					　青空文庫のテキストに含まれるルビ（例：老爺《ろうや》）を除去します。</p>
+				</div>
+			</div>					
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">リーダビリティの算出</div>
+    <div class="panel-body">
+			<div class="col-sm-6">
+				<h4><span class="label label-info">定数と係数の一覧</span></h4>
+				<%= @settings_data %>
+			</div>
+		</div>
+	</div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">システムの仕様</div>
+    <div class="panel-body">
+			<div class="col-sm-6">
+				<p><b>ソースコード（github）</b></p>
+				<ul>
+					<li><a href='https://github.com/yohasebe/jreadability'>https://github.com/yohasebe/jreadability</a></li>
+				</ul>
+
+				<p><b>内部で使用しているツール</b></p>
+				<ul>
+					<li><a href='http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html'>形態素解析エンジン MeCab <%= $MECAB_VERSION %></a></li>
+					<li><a href='http://download.unidic.org/'>形態素解析辞書 UniDic <%= $UNIDIC_VERSION %></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+

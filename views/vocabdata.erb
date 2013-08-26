@@ -1,0 +1,30 @@
+<!-- テキスト詳細タブの構成 -->
+<div class="tab-pane col-sm-12" id="vocabdata">
+  <div class="panel panel-default">
+    <div class="panel-heading">語彙リスト</div>
+    <div class="panel-body">
+
+      <div class="container" style='margin-top:10px;margin-bottom:20px'>
+				<p class='text-success'>形態素数（延べ）：<span id="nobe"></span>　形態素数（異なり）：<span id="kotonari"></span></p>
+				<p class='text-muted'>リンクをクリックすると辞書引きを行います。</p>
+					<div class="text-right">
+    				<div class="btn-group">          
+          		<button type="button" id="sort_shutsugen" class="btn btn-default btn-sm">出現順で並べ替え</button>
+          		<button type="button" id="sort_hatsuon" class="btn btn-default btn-sm">発音で並べ替え</button>
+          		<button type="button" id="sort_bunrui" class="btn btn-default btn-sm">分類で並べ替え</button>
+          		<button type="button" id="sort_hindo" class="btn btn-default btn-sm">頻度で並べ替え</button>
+         	 </div>
+        	</div>
+      </div>
+      <div id="vocabdata_panel">
+        <table class="table table-condensed table-striped">
+          <thead>
+            <tr><th id='vocab_shutsugen'>出現順</th><th id='vocab_kihonkei'>基本形</th><th id='vocab_hatsuon'>発音</th><th id='vocab_bunrui'>分類</th><th id='vocab_hindo'>頻度</th><th id='vocab_percent'>％</th><th id='vocab_henkakei'>変化形</th></tr>
+          </thead>
+					<tbody id="vocabdata_tbody"></tbody>
+        </table>				
+      </div>    
+			  
+    </div>
+  </div>
+</div>

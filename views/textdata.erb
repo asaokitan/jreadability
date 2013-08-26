@@ -1,0 +1,20 @@
+<!-- 語彙リストタブの構成 -->
+<div class="tab-pane col-sm-12" id="textdata">
+  <div class="panel panel-default">
+    <div class="panel-heading">テキスト詳細</div>
+    <div class="panel-body">
+      <div class="container" style='margin-top:10px;'>      
+        <p class='text-success'>総文数：<span id="num_sentences_total"></span>　文の平均語数：<span id="sentence_length"></span></p>
+				<p class='text-muted'>リンクをクリックすると辞書引きを行います。</p>
+      </div>
+      <div id="textdata_panel"></div>
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr><th style='padding-right: 50px;'>#</th><th>文</th></tr>
+        </thead>
+        <tbody id="textdata_table">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

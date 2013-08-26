@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<%= $SUB_DIRECTORY %>/ico/favicon.png">
+
+    <title>jReadability</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="<%= $SUB_DIRECTORY %>/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="<%= $SUB_DIRECTORY %>/bootstrap/assets/js/html5shiv.js"></script>
+      <script src="<%= $SUB_DIRECTORY %>/bootstrap/assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <!-- 		ヘッダー／ナビゲーション・メニュー -->
+    <div class="navbar navbar-default">
+      <div class="contaitner">
+        <div class="navbar-header" style='height:60px;'>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<%= $SUB_DIRECTORY %>/"><img src='<%= $SUB_DIRECTORY %>/ico/favicon.png'> 日本語リーダビリティ測定</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li><a href="<%= $SUB_DIRECTORY %>/#about"></a></li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <!-- テキスト入力用フォーム -->
+    <div class="container">
+      <h4><span class="label label-primary" id="message">日本語テキストを入力</span>
+					<span id="current_mode" mode="" subdir="<%= $SUB_DIRECTORY %>"></span></h4>
+      <textarea id="text" class="form-control" rows="10"></textarea>
+    </div><!-- /.container -->
+    
+    <!-- 実行オプション -->
+    <div class="container" style="margin-top: 10px;">
+      <div class="col-sm-4">      
+        <div class="checkbox">
+          <label><input type="checkbox" id="if_textdata" checked>テキスト詳細情報を出力</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" id="if_vocab" checked>語彙リストを出力</label>
+        </div>
+      </div>
+
+      <div class="col-sm-4">      
+        <div class="checkbox">
+          <label><input type="checkbox" id="kakko">丸括弧とその内側を除去</label>
+        </div>
+        <div class="checkbox">        
+          <label><input type="checkbox" id="aozora" checked>青空文庫のルビを除去</label>
+        </div>
+      </div>
+
+    <!-- テキスト送信用ボタン -->
+      <div class="col-sm-4 text-right"><br />
+				<div class="btn-group">
+					<button id="execute" type="button" class="btn btn-primary">実　行</button>
+					<button id="clear" type="button" class="btn btn-default">クリア</button>
+				</div>
+      </div>
+    </div><!-- /.container -->
+
+    <!-- 情報表示用パネルの上部に付くタブ群 -->
+    <div class="container">
+      <ul class="nav nav-tabs" style="margin:20px 0px 20px 0px;">
+        <li class="active"><a id="usage_link" data-toggle="tab">使用方法</a></li>
+        <li><a id="info_link" data-toggle="tab">テキスト情報</a></li>
+        <li><a id="textdata_link" data-toggle="tab">テキスト詳細</a></li>
+        <li><a id="vocab_link" data-toggle="tab">語彙リスト</a></li>
+      </ul>
+
+      <!-- 情報表示用パネル --> 
+      <div class="tab-content">
+        <%= erb(:usage, :layout => false) %>
+        <%= erb(:info, :layout => false) %>
+        <%= erb(:textdata, :layout => false) %>
+        <%= erb(:vocabdata, :layout => false) %>
+      </div>			
+    </div>
+
+		<!-- フッター -->
+    <div id="footer" style="height: 40px; background-color: #f5f5f5; padding:20px;">
+      <div class="container">
+      </div>
+    </div>		
+
+    <!-- テキスト詳細パネルで形態素情報をクリックしたときのためのモーダル・ウィンドウ -->
+    <div class="modal fade" id="morph_data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="morph-title"></h4>
+          </div>
+          <div class="modal-body" id="morph-body"></div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="<%= $SUB_DIRECTORY %>/bootstrap/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="<%= $SUB_DIRECTORY %>/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--[if lt IE 9]>
+        <script src="<%= $SUB_DIRECTORY %>/jqplot/excanvas.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="<%= $SUB_DIRECTORY %>/jqplot/jquery.jqplot.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%= $SUB_DIRECTORY %>/jqplot/jquery.jqplot.min.css" />
+    <script type="text/javascript" src="<%= $SUB_DIRECTORY %>/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+
+    <script type="text/javascript">
+    $.getScript("<%= $SUB_DIRECTORY %>/js/main.js", function(){});
+    </script>
+  </body>
+</html>
