@@ -10,7 +10,7 @@
 
 $LOAD_PATH << File.dirname(__FILE__) + "/../"
 
-require 'readability'
+require 'jreadability'
 require 'sequel'
 require 'progressbar'
 require 'csv'
