@@ -15,8 +15,8 @@ require 'csv'
 ##### DB・テーブル作成 #####
 dir = File.dirname(__FILE__)
 options = {}
-File.unlink(dir + "/../data/jvocabulary.db")
-DB = Sequel.sqlite(dir + "/../data/jvocabulary.db" , options)
+File.unlink($DB_PATH)
+DB = Sequel.sqlite($DB_PATH)
 DB.pragma_set("SYNCHRONOUS", :off)
 DB.pragma_set("JOURNAL_MODE", :off)
 DB.pragma_set("CACHE_SIZE", 20000)
