@@ -86,3 +86,4 @@ end
 # results = v.find_with_yomi('コンジョウ')
 # p results
 # v.disconnect
+#
