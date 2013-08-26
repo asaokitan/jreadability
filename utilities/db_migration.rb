@@ -9,7 +9,7 @@
 ###########################################################
 
 $LOAD_PATH << File.dirname(__FILE__) + "/../"
-$DB_PATH = File.expand_path(File.dirname(__FILE__) + "/data/jvocabulary.db")
+$DB_PATH = File.expand_path(File.dirname(__FILE__) + "/../data/jvocabulary.db")
 
 require 'sequel'
 require 'progressbar'
