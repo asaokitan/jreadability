@@ -106,6 +106,7 @@ EOD
     pos_data.sort_by{|p| -p[1]}
     other = analyzer.morphs.size - pos_data.transpose[1].inject(:+)    
     chart_data << ['その他', other] unless other == 0
+    chart_data
   end
 
   # 品詞構成のテーブルを作成
