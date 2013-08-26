@@ -10,7 +10,7 @@
 
 ##### 設定項目 #####
 $MECAB_VERSION = "0.996"
-$UNIDIC_VERSION = "Unidic Mecab 2.1.2"
+$UNIDIC_VERSION = "2.1.2"
 $SUB_DIRECTORY = "/jreadability" # 運用時のサブディレクトリ
 $MAX_NUM_CHARACTERS = 20000   # 入力テキスト文字数制限値
 $READABILITY_CONSTANT = 3.989  # 定数
