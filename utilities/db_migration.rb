@@ -9,7 +9,7 @@
 ###########################################################
 
 $LOAD_PATH << File.dirname(__FILE__) + "/../"
-$DB_PATH = File.expand_path(File.dirname(__FILE__) + "/../data/jvocabulary.db")
+$DB_DIR = File.expand_path(File.dirname(__FILE__) + "/../data/")
 
 require 'sequel'
 require 'progressbar'
@@ -18,8 +18,8 @@ require 'csv'
 ##### DB・テーブル作成 #####
 dir = File.dirname(__FILE__)
 options = {}
-File.unlink($DB_PATH)
-DB = Sequel.sqlite($DB_PATH)
+File.unlink($DB_DIR + "jvocabulary.db")
+DB = Sequel.sqlite($DB_DIR + "jvocabulary.db")
 DB.pragma_set("SYNCHRONOUS", :off)
 DB.pragma_set("JOURNAL_MODE", :off)
 DB.pragma_set("CACHE_SIZE", 20000)
@@ -70,7 +70,7 @@ DB.drop_view :jvocabulary rescue
 
 ##### マイグレーション （CSVの場合）#####
 # 元のファイルからデータを読み込み
-# headers, *vocab = CSV.read(File.dirname(__FILE__) + "/../data/jvocabulary.csv")
+# headers, *vocab = CSV.read($DB_DIR + "jvocabulary.csv")
 
 # データ整形
 # data = vocab.collect do |row|
@@ -85,7 +85,7 @@ DB.drop_view :jvocabulary rescue
 
 ##### マイグレーション （TSVの場合）#####
 # 元のファイルからデータを読み込み（TSVの場合）
-tsv = File.readlines(File.dirname(__FILE__) + "/../data/jvocabulary.txt")
+tsv = File.readlines($DB_DIR + "jvocabulary.txt")
 
 # 見出し行を削除
 tsv.shift
