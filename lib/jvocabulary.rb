@@ -8,7 +8,10 @@
 # Modified: 2013/08/26
 ###########################################################
 
+$LOAD_PATH << File.expand_path(File.dirname(__FILE__) + "/../")
+
 require 'sqlite3'
+require 'config'
 
 class Jvocabulary
   def initialize
@@ -16,7 +19,7 @@ class Jvocabulary
 
   def connect
     # DBへの接続
-    @db = SQLite3::Database.new($DB_PATH) 
+    @db = SQLite3::Database.new($DB_PATH + "/jvocabulary.db") 
   end
 
   # DBから情報を取得
@@ -80,6 +83,6 @@ end
 ##### Test Code #####
 # v = Jvocabulary.new
 # v.connect
-# results = v.find('コンジョウ')
+# results = v.find_with_yomi('コンジョウ')
 # p results
 # v.disconnect
