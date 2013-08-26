@@ -19,7 +19,7 @@ function setup_table(tabledata){
 
   // 列をクリックした時の処理
   $('td.clb').click(function(){
-		var subdir = $('#current_mode').attr("subdir")
+    var subdir = $('#current_mode').attr("subdir")
     var kihonkei = $(this).attr("kihonkei");
     var yomi = $(this).attr("yomi");
     var feature = $(this).attr("feature");
@@ -46,18 +46,18 @@ function setup_table(tabledata){
 }
 
 function create_vocabdata_table(vocabdata_json, num_morpheme_total, sort_type){
-	var tabledata = JSON.parse(vocabdata_json);
+  var tabledata = JSON.parse(vocabdata_json);
   
   // 形態素数（延べ）を反映
   $('#nobe').text(num_morpheme_total);
 
   // 形態素数（異なり）を反映
   $('#kotonari').text(tabledata.length);
-	
-	// メインの情報ページにも反映
-	var tr_num_morph_type = "<tr id='tr_num_morph_total'><td>総形態素数（異なり）</td><td>"
-	    + tabledata.length + "</td></tr>";
-	$('#tr_num_morph_token').after(tr_num_morph_type);
+
+  // メインの情報ページにも反映
+  var tr_num_morph_type = "<tr id='tr_num_morph_total'><td>総形態素数（異なり）</td><td>"
+      + tabledata.length + "</td></tr>";
+  $('#tr_num_morph_token').after(tr_num_morph_type);
 
   setup_table(tabledata);
   $('#vocab_shutsugen').css({"color":"IndianRed"})
@@ -75,7 +75,7 @@ function get_tabledata(){
   $.each($('tr.contents'), function(i, row){
     newarray.push([]);
     $.each($(this).children(), function(j, col){
-			newarray[i].push($(this).wrap('<p/>').parent().html());
+      newarray[i].push($(this).wrap('<p/>').parent().html());
     })
   })
   return newarray;    
@@ -84,8 +84,8 @@ function get_tabledata(){
 $("#sort_shutsugen").click(function(){
   var newdata = get_tabledata();
   newdata = newdata.sort(function(a, b){
-		a_s = parseInt(a[0].match(/\d+/), 10);
-		b_s = parseInt(b[0].match(/\d+/), 10);
+    a_s = parseInt(a[0].match(/\d+/), 10);
+    b_s = parseInt(b[0].match(/\d+/), 10);
     return (a_s==b_s) ? (a[2] > b[2] ? 1 : -1) : (a_s > b_s ? 1 : -1);
   });
   setup_table(newdata);  
@@ -103,8 +103,8 @@ $("#sort_shutsugen").click(function(){
 $("#sort_hatsuon").click(function(){
   var newdata = get_tabledata();
   newdata = newdata.sort(function(a, b){
-		a_h = parseInt(a[4].match(/\d+/), 10);
-		b_h = parseInt(b[4].match(/\d+/), 10);
+    a_h = parseInt(a[4].match(/\d+/), 10);
+    b_h = parseInt(b[4].match(/\d+/), 10);
     return (a[2]==b[2]) ? (a_h > b_h ? 1 : -1) : (a[2] > b[2] ? 1 : -1);
   });
   setup_table(newdata);  
@@ -121,8 +121,8 @@ $("#sort_hatsuon").click(function(){
 $("#sort_bunrui").click(function(){
   var newdata = get_tabledata();
   newdata = newdata.sort(function(a, b){
-		a_h = parseInt(a[4].match(/\d+/), 10);
-		b_h = parseInt(b[4].match(/\d+/), 10);
+    a_h = parseInt(a[4].match(/\d+/), 10);
+    b_h = parseInt(b[4].match(/\d+/), 10);
     return (a[3]==b[3]) ? (a_h > b_h ? -1 : 1) : (a[3] > b[3] ? 1 : -1);
   });
   setup_table(newdata);  
@@ -139,8 +139,8 @@ $("#sort_bunrui").click(function(){
 $("#sort_hindo").click(function(){
   var newdata = get_tabledata();
   newdata = newdata.sort(function(a, b){
-		a_h = parseInt(a[4].match(/\d+/), 10);
-		b_h = parseInt(b[4].match(/\d+/), 10);
+    a_h = parseInt(a[4].match(/\d+/), 10);
+    b_h = parseInt(b[4].match(/\d+/), 10);
     return (a_h==b_h) ? (a[2] > b[2] ? 1 : -1) : (a_h > b_h ? -1 : 1);
   });
   setup_table(newdata);  

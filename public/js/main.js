@@ -15,10 +15,10 @@ $(function(){
   $.getScript(subdir + "/js/vocabdata_table.js", function(){});
 
   function allclear(){
-    $("#basic_data").empty();
-    $("#hinshi_data").empty();
-    $("#goshu_data").empty();
-    $("#mojishu_data").empty();
+    $("#table_statistics").empty();
+    $("#table_hinshi").empty();
+    $("#table_goshu").empty();
+    $("#table_mojishu").empty();
     $("#hinshi_chart").empty();
     $("#goshu_chart").empty();
     $("#mojishu_chart").empty();
@@ -80,11 +80,11 @@ $(function(){
     var text   = $('#text').val();
 
     var if_textdata = $('#if_textdata').is(':checked');
-    var if_vocab = $('#if_vocab').is(':checked');
+    var if_vocabdata = $('#if_vocabdata').is(':checked');
     var kakko  = $('#kakko').is(':checked');
     var aozora = $('#aozora').is(':checked');
     $("#message").show();
-    $("#message").attr("class", "label label-info").html("処理中");
+    $("#message").attr("class", "label label-default").html("処理中");
     
     $.ajax({
       type: 'post',
@@ -92,7 +92,7 @@ $(function(){
       data: {
         text: text,
         if_textdata: if_textdata,
-        if_vocab: if_vocab,
+        if_vocabdata: if_vocabdata,
         kakko: kakko,
         aozora: aozora
       },
@@ -114,7 +114,7 @@ $(function(){
         $('#info_link').click();
 
 		    $("#info_link").show();				
-        if(if_vocab == true){
+        if(if_vocabdata == true){
           $("#vocab_link").show(); 
         } else {
           $("#vocab_link").hide(); 
@@ -129,17 +129,17 @@ $(function(){
         create_goshu_chart(data.goshu_chart_json);
         create_mojishu_chart(data.mojishu_chart_json);
 
-        $('#basic_data').append(data.statistics);
-        $('#hinshi_data').append(data.hinshi_breakdown);
-        $('#goshu_data').append(data.goshu_breakdown);
-        $('#mojishu_data').append(data.mojishu_breakdown);
+        $('#table_statistics').append(data.statistics);
+        $('#table_hinshi').append(data.hinshi_breakdown);
+        $('#table_goshu').append(data.goshu_breakdown);
+        $('#table_mojishu').append(data.mojishu_breakdown);
 
 				if(if_textdata){
           $('#textdata_table').append(data.textdata);
           create_textdata_table(data.num_sentences_total, data.sentence_length);
 				}
 
-				if(if_vocab){
+				if(if_vocabdata){
           create_vocabdata_table(data.vocabdata_json, data.num_morpheme_total, "hatsuon");
 				}
 				
@@ -154,7 +154,7 @@ $(function(){
 
 	    complete : function() {
         setTimeout(function(){
-          $("#message").attr("class", "label label-primary").html("日本語テキストを入力");
+          $("#message").attr("class", "label label-info").html("日本語テキストを入力");
         }, 2000);        
       }
     });

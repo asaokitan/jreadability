@@ -15,37 +15,108 @@ helpers do
   def make_settings_table
     rows = []
     rows << ["定数", $READABILITY_CONSTANT]
-    rows += $READABILITY_FACTORS
-    
+    rows += $READABILITY_FACTORS    
     rows = rows.collect do |r|
       "<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>"
     end
-    rows = rows.join("\n")
-    settings =<<EOD
-<table class="table table-condensed table-striped">
-  <tbody>
-    #{rows}
-  </tbody>
-</table>    
-EOD
+    settings = "<tbody>\n" +
+      rows.join("\n") +
+      "</tbody>"
   end
   
   # テキスト統計情報の整形
   def make_statistics(analyzer)
     dataset = analyzer.dataset
     statistics =<<EOD
-<h4><span class="label label-primary">テキストの概要</span></h4>
-<small>総形態素数（異なり）を表示するには「語彙リストを出力」をオンに</small><table class="table table-condensed table-striped">
-  <tbody id="table_statistics">
-    <tr><td width='50%'>リーダビリティ・スコア</td><td>#{dataset[:readability_level]}</td></tr>
-    <tr><td>ガイドライン</td><td>#{dataset[:guideline]}</td></tr>
-    <tr><td>総文数</td><td>#{dataset[:num_sentences]}</td></tr>
-    <tr id="tr_num_morph_token"><td>総形態素数（延べ）</td><td>#{dataset[:num_morphemes]}</td></tr>
-    <tr><td>総文字数<small>（記号・空白を含む）</small></td><td>#{dataset[:num_characters]}</td></tr>
-    <tr><td>一文の平均語数</td><td>#{dataset[:avg_num_of_words]}</td></tr>
-  </tbody>
-</table>    
+<tbody>
+  <tr><td width='50%'>リーダビリティ・スコア</td><td>#{dataset[:readability_level]}</td></tr>
+  <tr><td>ガイドライン</td><td>#{dataset[:guideline]}</td></tr>
+  <tr><td>総文数</td><td>#{dataset[:num_sentences]}</td></tr>
+  <tr id="tr_num_morph_token"><td>総形態素数（延べ）</td><td>#{dataset[:num_morphemes]}</td></tr>
+  <tr><td>総文字数<small>（記号・空白を含む）</small></td><td>#{dataset[:num_characters]}</td></tr>
+  <tr><td>一文の平均語数</td><td>#{dataset[:avg_num_of_words]}</td></tr>
+</tbody>
 EOD
+  end
+
+  # 品詞構成のテーブルおよび円グラフ用データを作成
+  def make_hinshi_data(analyzer)
+    dataset = analyzer.dataset
+    pos_data = []
+    pos_data << ['形状詞', dataset[:keijoushi]]
+    pos_data << ['形容詞', dataset[:keiyoushi]]
+    pos_data << ['助詞', dataset[:joshi]]
+    pos_data << ['助動詞', dataset[:jodoushi]]
+    pos_data << ['接続詞', dataset[:setsuzokushi]]
+    pos_data << ['代名詞', dataset[:daimeishi]]
+    pos_data << ['動詞', dataset[:doushi]]
+    pos_data << ['副詞', dataset[:fukushi]]
+    pos_data << ['固有名詞', dataset[:koyuumeishi]]
+    pos_data << ['普通名詞', dataset[:futsuumeishi]]
+    pos_data << ['連体詞', dataset[:rentaishi]]
+    pos_data.sort_by! {|pos| -pos[1] }
+    
+    chart_data = []
+    pos_data.each do |pos|
+      chart_data << [pos[0], pos[1]] unless pos[1] == 0
+    end
+    pos_data.sort_by{|p| -p[1]}
+    other = analyzer.morphs.size - pos_data.transpose[1].inject(:+)    
+    chart_data << ['その他', other] unless other == 0
+    chart_data
+  end
+
+  # 品詞構成のテーブルを作成
+  def make_hinshi_table(data)
+    "<tbody>\n" +
+    data.collect{ |r|"<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>" }.join("\n") +
+    "</tbody>\n"
+  end
+  
+  # 語種構成のテーブルおよび円グラフ用データを整形
+  def make_goshu_data(analyzer)
+    dataset = analyzer.dataset
+    goshu_data = []
+    goshu_data << ['和語', dataset[:wago]]
+    goshu_data << ['漢語', dataset[:kango]]
+    goshu_data << ['外来語', dataset[:gairaigo]]
+    goshu_data << ['混種語', dataset[:konshugo]]
+    goshu_data << ['定型句', dataset[:teikeiku]]
+    goshu_data.sort_by! {|goshu| -goshu[1] }
+
+    chart_data = []
+    goshu_data.each do |goshu|
+      chart_data << [goshu[0], goshu[1]] unless goshu[1] == 0
+    end
+  end
+
+  # 語種構成のテーブルを作成
+  def make_goshu_table(data)
+    "<tbody>\n" +
+    data.collect{ |r|"<tbody><tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>" }.join("\n") +
+    "</tbody>\n"
+  end
+
+  # 文字種構成のテーブルおよび円グラフ用データを作成
+  def make_mojishu_data(analyzer)
+    dataset = analyzer.dataset
+    mojishu_data = []
+    mojishu_data << ['漢字', dataset[:kanji]]
+    mojishu_data << ['ひらがな', dataset[:hiragana]]
+    mojishu_data << ['カタカナ', dataset[:katakana]]
+    mojishu_data.sort_by! {|mojishu| -mojishu[1] }
+
+    chart_data = []    
+    mojishu_data.each do |mojishu|
+      chart_data << [mojishu[0], mojishu[1]] unless mojishu[1] == 0
+    end    
+  end
+
+  # 文字種構成のテーブルを作成
+  def make_mojishu_table(data)
+    "<tbody>\n" + 
+    data.collect{ |r|"<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>" }.join("\n") +
+    "</tbody>\n"
   end
 
   # テキスト詳細情報の整形
@@ -80,107 +151,6 @@ EOD
     end
     m_str = m_array.join("　")
  	  text_data << "<tr><td><span style='font-weight: bold;'>#{prev_sent_id}</span></td><td>#{m_str}</td></tr>\n"
-  end
-  
-  # 品詞構成のテーブルおよび円グラフ用データを作成
-  def make_hinshi_data(analyzer)
-    dataset = analyzer.dataset
-    pos_data = []
-    pos_data << ['形状詞', dataset[:keijoushi]]
-    pos_data << ['形容詞', dataset[:keiyoushi]]
-    pos_data << ['助詞', dataset[:joshi]]
-    pos_data << ['助動詞', dataset[:jodoushi]]
-    pos_data << ['接続詞', dataset[:setsuzokushi]]
-    pos_data << ['代名詞', dataset[:daimeishi]]
-    pos_data << ['動詞', dataset[:doushi]]
-    pos_data << ['副詞', dataset[:fukushi]]
-    pos_data << ['固有名詞', dataset[:koyuumeishi]]
-    pos_data << ['普通名詞', dataset[:futsuumeishi]]
-    pos_data << ['連体詞', dataset[:rentaishi]]
-    pos_data.sort_by! {|pos| -pos[1] }
-    
-    chart_data = []
-    pos_data.each do |pos|
-      chart_data << [pos[0], pos[1]] unless pos[1] == 0
-    end
-    pos_data.sort_by{|p| -p[1]}
-    other = analyzer.morphs.size - pos_data.transpose[1].inject(:+)    
-    chart_data << ['その他', other] unless other == 0
-    chart_data
-  end
-
-  # 品詞構成のテーブルを作成
-  def make_hinshi_table(data)
-    rows = data.collect{ |r|"<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>" }.join("\n")
-    hinshi_breakdown =<<EOD
-<h4><span class="label label-primary">品詞構成</span></h4>
-<small>記号類は除外</small>
-<table class="table table-condensed table-striped">
-  <tbody>
-  #{rows}
-  </tbody>
-</table>    
-EOD
-  end
-  
-  # 語種構成のテーブルおよび円グラフ用データを整形
-  def make_goshu_data(analyzer)
-    dataset = analyzer.dataset
-    goshu_data = []
-    goshu_data << ['和語', dataset[:wago]]
-    goshu_data << ['漢語', dataset[:kango]]
-    goshu_data << ['外来語', dataset[:gairaigo]]
-    goshu_data << ['混種語', dataset[:konshugo]]
-    goshu_data << ['定型句', dataset[:teikeiku]]
-    goshu_data.sort_by! {|goshu| -goshu[1] }
-
-    chart_data = []
-    goshu_data.each do |goshu|
-      chart_data << [goshu[0], goshu[1]] unless goshu[1] == 0
-    end
-  end
-
-  # 語種構成のテーブルを作成
-  def make_goshu_table(data)
-    rows = data.collect{ |r|"<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>" }.join("\n")
-    goshu_breakdown =<<EOD
-<h4><span class="label label-primary">語種構成</span></h4>
-<small>定型句は「ありがとう」などを指す</small>
-<table class="table table-condensed table-striped">
-  <tbody>
-  #{rows}
-  </tbody>
-</table>    
-EOD
-  end
-
-  # 文字種構成のテーブルおよび円グラフ用データを作成
-  def make_mojishu_data(analyzer)
-    dataset = analyzer.dataset
-    mojishu_data = []
-    mojishu_data << ['漢字', dataset[:kanji]]
-    mojishu_data << ['ひらがな', dataset[:hiragana]]
-    mojishu_data << ['カタカナ', dataset[:katakana]]
-    mojishu_data.sort_by! {|mojishu| -mojishu[1] }
-
-    chart_data = []    
-    mojishu_data.each do |mojishu|
-      chart_data << [mojishu[0], mojishu[1]] unless mojishu[1] == 0
-    end    
-  end
-
-  # 文字種構成のテーブルを作成
-  def make_mojishu_table(data)
-    rows = data.collect{ |r|"<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>" }.join("\n")
-    mojishu_breakdown =<<EOD
-<h4><span class="label label-primary">文字種構成</span></h4>
-<small>記号やアラビア数字等は除外</small>
-<table class="table table-condensed table-striped">
-  <tbody>
-  #{rows}
-  </tbody>
-</table>    
-EOD
   end
 
   # 語彙リストのデータを作成

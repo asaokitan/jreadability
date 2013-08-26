@@ -40,7 +40,7 @@ post '/get_info' do
   end
 
   if_textdata  = params[:if_textdata] == "true"  ? true : false
-  if_vocab  = params[:if_vocab] == "true"  ? true : false
+  if_vocabdata  = params[:if_vocabdata] == "true"  ? true : false
   kakko  = params[:kakko] == "true"  ? true : false
   aozora = params[:aozora] == "true" ? true : false
   analyzer = Analyzer.new(kakko, aozora)
@@ -60,15 +60,21 @@ post '/get_info' do
   mojishu_data = make_mojishu_data(analyzer)
 
   data = {:statistics => statistics, 
-          :hinshi_breakdown => make_hinshi_table(hinshi_data), :hinshi_chart_json => hinshi_data.to_json,
-          :mojishu_breakdown => make_mojishu_table(mojishu_data), :mojishu_chart_json => mojishu_data.to_json,
-          :goshu_breakdown => make_goshu_table(goshu_data), :goshu_chart_json => goshu_data.to_json, 
-          :num_morpheme_total => analyzer.morphs.size, :num_sentences_total => num_sentences_total,
-          :sentence_length => sentence_length, :num_characters => text.size, 
-          :settings => settings, :check => "true"}
+          :hinshi_breakdown => make_hinshi_table(hinshi_data), 
+          :hinshi_chart_json => hinshi_data.to_json,
+          :mojishu_breakdown => make_mojishu_table(mojishu_data),
+          :mojishu_chart_json => mojishu_data.to_json,
+          :goshu_breakdown => make_goshu_table(goshu_data),
+          :goshu_chart_json => goshu_data.to_json, 
+          :num_morpheme_total => analyzer.morphs.size,
+          :num_sentences_total => num_sentences_total,
+          :sentence_length => sentence_length,
+          :num_characters => text.size, 
+          :settings => settings,
+          :check => "true"}
 
   data[:textdata] = make_textdata(analyzer) if if_textdata
-  data[:vocabdata_json] = make_vocabdata(analyzer) if if_vocab
+  data[:vocabdata_json] = make_vocabdata(analyzer) if if_vocabdata
   
   return data.to_json
 end
@@ -87,7 +93,7 @@ post '/get_morphdata' do
   end
 
   jv.disconnect
-  
+
   if !morphs.empty?
     morph = morphs.first
 

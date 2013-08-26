@@ -15,7 +15,7 @@ function create_textdata_table(num_sentences_total, sentence_length){
 
   // 形態素をクリックしたときの処理
   $('.morph').click(function(){
-		var subdir = $('#current_mode').attr("subdir")
+    var subdir = $('#current_mode').attr("subdir")
     var surface = $(this).text();
     var kihonkei = $(this).attr("kihonkei");
     var feature = $(this).attr("feature");

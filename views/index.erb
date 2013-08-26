@@ -20,7 +20,7 @@
 
   <body>
 
-    <!-- 		ヘッダー／ナビゲーション・メニュー -->
+    <!-- ヘッダー／ナビゲーション・メニュー -->
     <div class="navbar navbar-default">
       <div class="contaitner">
         <div class="navbar-header" style='height:60px;'>
@@ -41,8 +41,8 @@
 
     <!-- テキスト入力用フォーム -->
     <div class="container">
-      <h4><span class="label label-primary" id="message">日本語テキストを入力</span>
-					<span id="current_mode" mode="" subdir="<%= $SUB_DIRECTORY %>"></span></h4>
+      <h4><span class="label label-info" id="message">日本語テキストを入力</span>
+        <span id="current_mode" mode="" subdir="<%= $SUB_DIRECTORY %>"></span></h4>
       <textarea id="text" class="form-control" rows="10"></textarea>
     </div><!-- /.container -->
     
@@ -53,7 +53,7 @@
           <label><input type="checkbox" id="if_textdata" checked>テキスト詳細情報を出力</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" id="if_vocab" checked>語彙リストを出力</label>
+          <label><input type="checkbox" id="if_vocabdata" checked>語彙リストを出力</label>
         </div>
       </div>
 
@@ -68,10 +68,10 @@
 
     <!-- テキスト送信用ボタン -->
       <div class="col-sm-4 text-right"><br />
-				<div class="btn-group">
-					<button id="execute" type="button" class="btn btn-primary">実　行</button>
-					<button id="clear" type="button" class="btn btn-default">クリア</button>
-				</div>
+        <div class="btn-group">
+          <button id="execute" type="button" class="btn btn-primary">実　行</button>
+          <button id="clear" type="button" class="btn btn-default">クリア</button>
+        </div>
       </div>
     </div><!-- /.container -->
 
@@ -90,14 +90,14 @@
         <%= erb(:info, :layout => false) %>
         <%= erb(:textdata, :layout => false) %>
         <%= erb(:vocabdata, :layout => false) %>
-      </div>			
+      </div>
     </div>
 
-		<!-- フッター -->
+    <!-- フッター -->
     <div id="footer" style="height: 40px; background-color: #f5f5f5; padding:20px;">
       <div class="container">
       </div>
-    </div>		
+    </div>
 
     <!-- テキスト詳細パネルで形態素情報をクリックしたときのためのモーダル・ウィンドウ -->
     <div class="modal fade" id="morph_data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -112,9 +112,9 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-		<!-- Bootstrap core JavaScript -->
-		<script type="text/javascript" src="<%= $SUB_DIRECTORY %>/bootstrap/assets/js/jquery.js"></script>
-		<script type="text/javascript" src="<%= $SUB_DIRECTORY %>/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="<%= $SUB_DIRECTORY %>/bootstrap/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="<%= $SUB_DIRECTORY %>/bootstrap/js/bootstrap.min.js"></script>
 
     <!--[if lt IE 9]>
         <script src="<%= $SUB_DIRECTORY %>/jqplot/excanvas.min.js"></script>
