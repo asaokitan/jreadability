@@ -8,7 +8,6 @@
 # Modified: 2013/08/26
 ###########################################################
 
-$LOAD_PATH << File.dirname(__FILE__) + "/../"
 $DB_DIR = File.expand_path(File.dirname(__FILE__) + "/../data/")
 
 require 'sequel'
