@@ -154,7 +154,7 @@ $(function(){
 
 	    complete : function() {
         setTimeout(function(){
-          $("#message").attr("class", "label label-info").html("日本語テキストを入力");
+          $("#message").attr("class", "label label-primary").html("日本語テキストを入力");
         }, 2000);        
       }
     });
