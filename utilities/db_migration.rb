@@ -8,7 +8,7 @@
 # Modified: 2013/08/26
 ###########################################################
 
-$LOAD_PATH << File.dirname(__FILE__) + "../"
+$LOAD_PATH << File.dirname(__FILE__) + "/../"
 
 require 'readability'
 require 'sequel'
