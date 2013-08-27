@@ -1,35 +1,50 @@
 <!-- 使用方法タブの構成 -->
 <div class="tab-pane col-sm-12" id="usage">
+
   <div class="panel panel-default">
-    <div class="panel-heading">基本的な使用方法</div>
+    <div class="panel-heading">使用方法</div>
     <div class="panel-body">
-      <p>テキストボックスに日本語テキストを入力し、[実行] ボタンをクリックしてください。</p>
-      <p>[クリア] ボタンで入力したテキスト（および結果の表示）を消去できます。</p>
-      <p>入力可能なテキストの文字数は<%= @max_num_characters %>字です。</p>				
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <p ><b>利用可能なオプション</b></p>
-          <p>テキスト詳細情報を出力する<br />
-            テキスト中の各文を形態素に分割して表示します。</p>
-          <p>語彙リストを表示する<br />
-            形態素を集計し、出現順、発音順、頻度順のいずれかで表示します。</p>
-          <p>丸括弧とその内側のテキストを除去する<br />
-            適切なリーダビリティ・スコアが出るよう丸括弧（ ）を文から除去します。</p>
-          <p>青空文庫のルビを除去する<br />
-            青空文庫のテキストに含まれるルビ（例：老爺《ろうや》）を除去します。</p>
-        </div>
-      </div> 
+      <div class="col-sm-6">
+        <h5><b>基本的な操作</b></h5>
+        <p>テキストボックスに日本語テキストを入力し、[実行] ボタンをクリックしてください。
+          [クリア] ボタンで入力したテキストと結果表示を消去できます。</p>
+        <p>テキストの概要、品詞構成、語種構成、文字種構成が画面下に出力されます。
+           オプションを選択することで、テキスト詳細と語彙リストの出力も可能です。
+           また、表示される多くの形態素について辞書引きができます。
+        <p>入力可能なテキストの文字数は<%= @max_num_characters %>字です。</p>
+      </div>
+      <div class="col-sm-6">
+        <h5><b>利用可能なオプション</b></h5>
+        <p>[テキスト詳細情報を出力する]<br />
+        　テキスト中の各文を形態素に分割して表示します。</p>
+        <p>[語彙リストを表示する]<br />
+        　形態素を集計し、出現順、発音順、頻度順のいずれかで表示します。</p>
+        <p>[丸括弧とその内側のテキストを除去する]<br />
+        　適切なリーダビリティ・スコアが出るよう丸括弧（ ）を文から除去します。</p>
+        <p>[青空文庫のルビを除去する]<br />
+        　青空文庫のテキストに含まれるルビ（例：老爺《ろうや》）を除去します。</p>
+      </div>
     </div>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">リーダビリティの算出</div>
+    <div class="panel-heading">本プロジェクトについて</div>
     <div class="panel-body">
+      <div class="col-sm-6">      
+        <h5><b>参加研究者一覧</b></h5>
+        <ul>
+          <li>李 在鎬（筑波大学）</li>
+          <li>長谷部 陽一郎（同志社大学）</li>
+          <li>淺尾 仁彦（ニューヨーク州立大学バッファロー校）</li>
+        </ul>
+      </div>
       <div class="col-sm-6">
-        <p><b>定数と係数の一覧</b></p>
-        <table id="table_setting" class="table table-condensed table-striped">
-          <%= @settings_data %>
-        </table>
+        <h5><b>謝辞</b></h5>
+        <p>本プロジェクトは下記の補助を受けています。</p>
+        <ul>
+          <li>研究種目と分野：基盤研究(C)　日本語教育</li>
+          <li>研究課題名：読解教育支援を目的とする文章難易度判別システムの開発（課題番号：25370573）</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -37,6 +52,13 @@
   <div class="panel panel-default">
     <div class="panel-heading">システムの仕様</div>
     <div class="panel-body">
+
+      <div class="col-sm-6">
+        <p><b>定数と係数の一覧</b></p>
+        <table id="table_setting" class="table table-condensed table-striped">
+          <%= @settings_data %>
+        </table>
+      </div>
       <div class="col-sm-6">
         <p><b>ソースコード（github）</b></p>
         <ul>
@@ -45,8 +67,8 @@
 
         <p><b>内部で使用しているツール</b></p>
         <ul>
-          <li>形態素解析エンジン <a href='http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html'>MeCab</a> [<%= $MECAB_VERSION %>]</li>
-          <li>形態素解析辞書 <a href='http://download.unidic.org/'>UniDic</a> [<%= $UNIDIC_VERSION %>]</li>
+          <li>形態素解析エンジン <a href='http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html'>MeCab</a> <%= $MECAB_VERSION %></li>
+          <li>形態素解析辞書 <a href='http://download.unidic.org/'>UniDic</a> <%= $UNIDIC_VERSION %></li>
         </ul>
       </div>
     </div>

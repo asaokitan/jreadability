@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<%= $SUB_DIRECTORY %>/"><img src='<%= $SUB_DIRECTORY %>/ico/favicon.png'> 日本語リーダビリティ測定</a>
+          <a class="navbar-brand" href="<%= $SUB_DIRECTORY %>/"><img src='<%= $SUB_DIRECTORY %>/ico/favicon.png'> 日本語文章難易度判別システム <span class="text-warning"> alpha版 </span></a>           
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -43,7 +43,7 @@
     <div class="container">
       <h4><span class="label label-primary" id="message">日本語テキストを入力</span>
         <span id="current_mode" mode="" subdir="<%= $SUB_DIRECTORY %>"></span></h4>
-      <textarea id="text" class="form-control" rows="10"></textarea>
+      <textarea id="text" class="form-control" rows="6"></textarea>
     </div><!-- /.container -->
     
     <!-- 実行オプション -->
@@ -78,7 +78,7 @@
     <!-- 情報表示用パネルの上部に付くタブ群 -->
     <div class="container">
       <ul class="nav nav-tabs" style="margin:20px 0px 20px 0px;">
-        <li class="active"><a id="usage_link" data-toggle="tab">使用方法</a></li>
+        <li class="active"><a id="usage_link" data-toggle="tab">本システムについて</a></li>
         <li><a id="info_link" data-toggle="tab">テキスト情報</a></li>
         <li><a id="textdata_link" data-toggle="tab">テキスト詳細</a></li>
         <li><a id="vocab_link" data-toggle="tab">語彙リスト</a></li>
