@@ -17,7 +17,7 @@ helpers do
     rows << ["定数", $READABILITY_CONSTANT]
     rows += $READABILITY_FACTORS    
     rows = rows.collect do |r|
-      "<tr><td>#{r[0]}</td><td>#{r[1]}</td></tr>"
+      "<tr><td>#{r[0]}</td><td style='text-align:right;'>#{r[1]}</td></tr>"
     end
     settings = "<tbody>\n" +
       rows.join("\n") +
